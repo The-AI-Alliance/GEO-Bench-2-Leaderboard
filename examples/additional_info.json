@@ -1,0 +1,17 @@
+{
+
+    "Paper Link": "links to published paper or preprint if available. Please use N/A if not available",
+    "Code Repository Link ": "links to any papers that you wish to be included with your submission. Please use N/A if not available",
+    "License": "License information about your model, e.g. MIT. Please use N/A if not available",
+    "Number of HPO trials": "Number of trials for hyperparameter optimiztion of each model/dataset combination",
+    "Additional information about submission": "Any information about how the experiments were conducted",
+    "Comments on new models in submission": "Describe any new models you have included which were not previously part of the leaderboard. You may include information such as model architecture, pre-training datasets used, number of training steps, hardware used, training time",
+    "New model info": 
+        [
+            {
+                "model_display_name": "Name to be used in leaderboard table for any new models in your submission",
+                "model_size": "number of trainable parameters in model (e.g. 300M)", 
+                "unique_backbone_key": "backbone used in experiments to identify the model. Will be used to identify the model in the results table (csv file)"
+            }
+        ]
+}

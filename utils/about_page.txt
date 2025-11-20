@@ -1,0 +1,38 @@
+### 1. Create New Submission Directory
+Create a new folder in the `new_submission` top directory:
+```bash
+geobench_leaderboard/
+└── new_submission/
+    ├── results_and_parameters.csv
+    ├── additional_info.json
+```
+
+### 2. Add Results and Parameters Details
+
+Add a CSV file (`results_and_parameters.csv`) with the columns below. Please note that if terratorch-iterate is used for experiments, this table may be created automatically upon completion of an experiment. Please see https://github.com/The-AI-Alliance/GEO-Bench-Leaderboard for more:
+ - `backbone`: backbone used for experiment, (e.g. Prithvi-EO-V2 600M)
+ - `dataset`: some or all of the GEO-bench datasets. Please see Info page to learn more.
+ - `Metric`: the type of metric used for evaluation. Depending on the dataset, this may be one of the following: `Overall_Accuracy`, `Multilabel_F1_Score`, `Multiclass_Jaccard_Index`
+ - `experiment_name`: if terratorch-iterate used, this will the experiment_name used in mlflow. Otherwise, a unique name may be used for all results relating to a single backbone
+ - `batch_size_selection`: denotes whether the batch size was fixed during hyperparameter optimization. May be `fixed` or `optimized`
+ - `early_stop_patience`: early stopping patience using for trainer
+ - `n_trials`: number of trials used for hyperparameter optimization
+ - `Seed`: random seed used for repeated experiment. 10 random seeds must be used for each 
+ - `batch_size`: batch size used for repeated experiments for each backbone/dataset combination.
+ - `weight_decay`: weight decay experiments for each backbone/dataset combination.
+ - `lr`: learning rate used for repeated experiments for each backbone/dataset combination. Obtained from hyperparameter optimization (HPO)
+ - `test metric`: metric obtained from running backbone on the dataset during repeated experiment. Please see Info page to learn more. 
+
+
+
+### 3. Add Additional Information
+Create a JSON file (`additional_info.json`) with information about your submission and any new models that will be included.
+The JSON file MUST have the same file name and contain the same keys as the `examples/additional_info.json` file. 
+
+
+### 4. Submit PR
+
+1. Fork the repository
+2. Add your results following the structure above and in the PR comments add more details about your submission
+3. Create a pull request to main
+
