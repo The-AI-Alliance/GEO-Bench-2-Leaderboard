@@ -130,7 +130,7 @@ def create_html_results_table(df, df_err, rank_table, display_rank=False):
                         bg = rgb_to_css(rgb)
                         fg = readable_text_color(rgb)
                         if display_rank:
-                            display_val = row[col] if np.isnan(row[col]) else int(rank_row[col])
+                            display_val = " - " if np.isnan(row[col]) else int(rank_row[col])
                             new_val = f'<td style="background-color:{bg};color:{fg}">{sanitize_cell_value(display_val)}</td>'
                         else:
                             new_val = f'<td style="background-color:{bg};color:{fg}">{sanitize_cell_value(row[col])} ± {sanitize_cell_value(row_err[col])} </td>'
