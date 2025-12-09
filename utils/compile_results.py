@@ -44,8 +44,8 @@ def load_results(folder: str = RESULTS_DIR,
         combined_results = combined_results.drop(["index"], errors='ignore')
         try:
             frozen_or_full_ft = combined_results["frozen_or_full_ft"][0]    
-        except KeyError as e:
-            raise KeyError(f"{e} {combined_results=}")
+        except Exception as e:
+            print(f"{e} {combined_results=}")
         all_submission_results[frozen_or_full_ft][submission] = {}
 
         combined_results["# params"]  = combined_results.apply(lambda row: model_size[row.backbone], axis=1)
