@@ -109,7 +109,7 @@ NEW_SUBMISSION_COLUMN_INFO = {
 NEW_SUBMISSION_COLUMN_NAMES = []
 for key, value in NEW_SUBMISSION_COLUMN_INFO.items():
     NEW_SUBMISSION_COLUMN_NAMES.extend(value)
-
+BIOMASSTERS_STD = 0.2537951171398163
                                 
 JSON_FORMAT = {
                 "Paper Link": "N/A",

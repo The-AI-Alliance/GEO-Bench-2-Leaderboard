@@ -56,6 +56,7 @@ The JSON file MUST have the same file name and contain the same keys as the `exa
 ## 2. Benchmarking with Terratorch-Iterate
 The [TerraTorch-Iterate](https://github.com/IBM/terratorch-iterate) library, based on [TerraTorch](https://github.com/IBM/terratorch), leverages MLFlow for experiment logging, optuna for hyperparameter optimization and ray for parallelization. It includes functionality to easily perform both hyperparameter tuning and re-repeated experiments in the manner prescribed by the GEO-Bench protocol. The `summarize` feature of `TerraTorch-Iterate` can be used to automatically create a `results_and_parameters.csv` file for submission, once benchmarking is complete.
 
+
 ### 2.1 Installation
 Please see [TerraTorch-Iterate](https://github.com/IBM/terratorch-iterate) for installation instructions
 
@@ -70,7 +71,9 @@ terratorch iterate --hpo --repeat --config <config-file>
 
 
 ### 2.3 Summarizing and plotting results 
-**Extract results and parameters**: The command below can be used to extract results and hyperparameters file for submission to the lederboard. Please see details at the following link: https://github.com/terrastackai/iterate?tab=readme-ov-file#summarizing-results. 
+**Extract results and parameters**: The command below can be used to extract results and hyperparameters file for submission to the leaderboard. Please see details at the following link: https://github.com/terrastackai/iterate?tab=readme-ov-file#summarizing-results. 
 ```
 terratorch iterate --summarize --config <summarize-config-file>
 ```
+
+ **NOTE: Please use the `scale_rmse` function as shown in `normalization_example.ipynb` to convert the biomassters `rmse` value to the corresponding de-normalized score before submission to the leaderboard.**
