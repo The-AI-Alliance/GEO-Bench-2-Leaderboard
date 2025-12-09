@@ -75,7 +75,7 @@ def bootstrap_mean_aggregate(df, metric="test_metric", repeat=100):
 
 def scale_rmse(data: pd.DataFrame):
     def scale(row):
-        if (row["dataset"] == "biomassters") and ("rmse" in row["Metric"].lower()):
+        if (row["dataset"] == "biomassters") and ("rmse" in row["Metric"].lower()):            
             return 1 - (row["test metric"]*BIOMASSTERS_STD)  
         else:
             return row["test metric"]
