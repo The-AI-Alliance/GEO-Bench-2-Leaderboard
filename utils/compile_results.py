@@ -1,18 +1,10 @@
 import json
-import re
 import os
-
 import pandas as pd
 import numpy as np
 import pickle
-
-from urllib.parse import quote
-from pathlib import Path
-import re
-import html
-from typing import Dict, Any
+from typing import Dict
 from scipy.stats import sem
-
 from utils.constants import (NORM_BASE_SUBMISSION, DATASETS, DIGITS_FOR_VALUES, DIGITS_FOR_ERRORS,
                              DIMENSIONS, COLUMN_ORDER, MODEL_INFO_FILE, RESULTS_DIR)
 from utils import compute_tools
@@ -38,7 +30,8 @@ def load_results(folder: str = RESULTS_DIR,
     #read submission info
     all_submissions = os.listdir(folder)
     for item in items_to_ignore:
-        if item in all_submissions: all_submissions.remove(item)
+        if item in all_submissions: 
+            all_submissions.remove(item)
 
     all_submission_results = {}
     #TODO: add some info to json files and read here also
@@ -52,7 +45,7 @@ def load_results(folder: str = RESULTS_DIR,
         try:
             frozen_or_full_ft = combined_results["frozen_or_full_ft"][0]    
         except KeyError as e:
-            KeyError(f"{combined_results=}")
+            KeyError(f"{e} {combined_results=}")
         all_submission_results[frozen_or_full_ft][submission] = {}
 
         combined_results["# params"]  = combined_results.apply(lambda row: model_size[row.backbone], axis=1)
@@ -109,7 +102,7 @@ def compute_all_iqms(
         #TODO: remove
         partition_name =  "0.10x train" if "data_10_perc" in submission else "1.00x train" 
         submission_results = all_submission_results[submission]["results"]
-        if not "partition name" in list(submission_results.columns):
+        if "partition name" not in list(submission_results.columns):
             submission_results["partition name"] = partition_name 
         submission_results["partition name"] = partition_name 
 

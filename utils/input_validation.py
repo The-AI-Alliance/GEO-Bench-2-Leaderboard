@@ -1,7 +1,6 @@
 import pandas as pd
 import json
 import os
-import numpy as np
 import uuid
 from utils.constants import (NEW_SUBMISSION_FOLDER, CSV_FILE, JSON_FILE, DIMENSIONS, 
                         NEW_SUBMISSION_COLUMN_INFO, NEW_SUBMISSION_COLUMN_NAMES,
@@ -88,13 +87,13 @@ def check_json_keys() -> bool:
     #TBD: check json file nested values have correct data type
     all_required_keys = []
     for key, value in JSON_FORMAT.items():
-        if (key in json_submission_data) and (type(value) == type(json_submission_data[key])): 
+        if (key in json_submission_data) and isinstance(json_submission_data[key], type(value)): 
             all_required_keys.append(True)
         else:
             all_required_keys.append(False)
     all_required_keys = all(all_required_keys)
     if not all_required_keys:
-        print(f"\nInput Validation Error: Please ensure that json file has the correct keys and datatypes")
+        print("\nInput Validation Error: Please ensure that json file has the correct keys and datatypes")
     
     return all_required_keys
 
@@ -158,11 +157,13 @@ def validate_new_submission() -> bool:
     
     """
     #get folder contents
-    if not os.path.exists(NEW_SUBMISSION_FOLDER): return
+    if not os.path.exists(NEW_SUBMISSION_FOLDER): 
+        return
     folder_contents = os.listdir(NEW_SUBMISSION_FOLDER)
     items_to_ignore = ['.DS_Store']
     for item in items_to_ignore:
-        if item in folder_contents: folder_contents.remove(item)
+        if item in folder_contents: 
+            folder_contents.remove(item)
     if len(folder_contents) == 0:
         print("no new submissions")
         return
@@ -187,7 +188,8 @@ def validate_new_submission() -> bool:
             json_submission_data = json.load(f)
         new_dict = {}
         for key, value in JSON_FORMAT.items():
-            if value == "TBD": continue
+            if value == "TBD": 
+                continue
             new_dict[key] = json_submission_data[key]
         with open(f"{RESULTS_DIR}/{submission_id}/{JSON_FILE}", 'w') as fp:
             json.dump(new_dict, fp)

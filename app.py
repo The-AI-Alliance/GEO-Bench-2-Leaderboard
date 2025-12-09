@@ -1,19 +1,14 @@
-import os
 import json
 import re
 import streamlit as st
 import pandas as pd
 import numpy as np
-from urllib.parse import quote
 from pathlib import Path
-import re
 import html
-import pickle
-from typing import Dict, Any, Tuple
-from scipy.stats import sem
-from utils.constants import (DATASETS, DIGITS_FOR_VALUES, DIGITS_FOR_ERRORS,
-                               DATASET_INFO, DIMENSIONS, RESULTS_DIR,
-                               DIMENSION_INFO)
+from typing import Any, Tuple
+from utils.constants import (DATASETS, DATASET_INFO,
+                            DIMENSIONS, RESULTS_DIR,
+                            DIMENSION_INFO)
 
 
 def sanitize_model_name(model_name):
@@ -248,9 +243,9 @@ def filter_with_user_selections(unique_key: str,
     #filter by search bars
     col1, col2  = st.columns(2)
     with col1:
-        search_models_query = st.text_input(f"Search by model", "", key=f"search_{unique_key}_models")
+        search_models_query = st.text_input("Search by model", "", key=f"search_{unique_key}_models")
     with col2:
-        search_submission_query = st.text_input(f"Search by submission", "", key=f"search_{unique_key}_submission")
+        search_submission_query = st.text_input("Search by submission", "", key=f"search_{unique_key}_submission")
     # with col3:
     #     search_settings_query = st.text_input(f"Search by settings", "", key=f"search_{unique_key}_settings")
     if search_models_query:
@@ -317,12 +312,12 @@ def create_overall_performance_tab(
     rank_table = get_rank(overall_table)
     
     # Export the DataFrame to CSV
-    if st.button("Export to CSV", key=f"overall_performance_export_main"):
+    if st.button("Export to CSV", key="overall_performance_export_main"):
         csv_data = overall_table.to_csv(index=False)
         st.download_button(
             label="Download CSV",
             data=csv_data,
-            file_name=f"overall_performance_leaderboard.csv",
+            file_name="overall_performance_leaderboard.csv",
             key="download-csv",
             help="Click to download the CSV file",
         )
@@ -531,28 +526,6 @@ def main():
         with open("utils/about_page.txt") as f:
             about_page = f.read()
         st.markdown(about_page)
-    comment = """ 
-
-    with tabs[2]:
-        # Models tab       
-        st.markdown("Models used for benchmarking")
-        model_tabs = st.tabs(all_model_names) 
-        #create individual benchmark pages
-        #create_models_tabs(all_submission_results=all_submission_results,
-        #                    model_tabs=model_tabs,
-        #                    all_model_names=all_model_names
-        #                    )
-    with tabs[3]:
-        # Submissions tab       
-        st.markdown("Experiments submitted to benchmark benchmarking")
-        submissions_tabs = st.tabs(all_submissions) 
-        #create individual benchmark pages
-        #create_submissions_tabs(all_submission_results=all_submission_results,
-        #                    model_tabs=submissions_tabs,
-        #                    all_submissions=all_submissions
-        #                    )
-     
-    """
                 
         
 if __name__ == "__main__":

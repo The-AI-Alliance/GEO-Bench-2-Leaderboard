@@ -1,9 +1,8 @@
 import pytest
 from pathlib import Path
 import pandas as pd
-from typing import Dict
 import pickle
-from utils.compile_results import *
+from utils.compile_results import load_results, compute_all_iqms, get_overall_performance_table, get_performance_by_dimension_table, get_datasets_tables
 from utils.constants import NORM_BASE_SUBMISSION
 
 root = Path(__file__).parent.resolve()
@@ -25,7 +24,7 @@ class TestLoading:
     def test_submission_results(self):
         for _, value in self.all_submission_results.items():
             assert "results" in value
-            assert type(value["results"]) == pd.DataFrame
+            assert isinstance(value["results"], pd.DataFrame)
 
             columns_to_be_added = {"# params", "Model", "Config Settings"}
             existing_columns = set(value["results"].columns)
@@ -58,13 +57,10 @@ class TestComputeResults:
         assert "overall_performance_tables" in expected_output
 
         for submission, submission_value in self.all_iqms.items():
-            assert sorted(submission_value.keys()) == sorted(expected_output["all_iqms"][submission].keys())#sorted(ALL_TABLES)
+            assert sorted(submission_value.keys()) == sorted(expected_output["all_iqms"][submission].keys())
 
             for table_name, table in submission_value.items():
-                #print(f"{table_name}: {type(table) == pd.DataFrame}")
-                #print(f"table.columns: {table.columns}")
-                #print(f"expected_output['all_iqms'][submission][table_name]{expected_output['all_iqms'][submission][table_name].columns}")
-                assert type(table) == pd.DataFrame
+                assert isinstance(table, pd.DataFrame)
                 #assert table.equals(expected_output["all_iqms"][submission][table_name])
 
 
