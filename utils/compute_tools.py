@@ -5,7 +5,7 @@ import os
 import numpy as np
 import pandas as pd
 from pathlib import Path
-from utils.constants import NORMALIZER_DIR
+from utils.constants import NORMALIZER_DIR, BIOMASSTERS_STD
 import json
 from scipy.stats import trim_mean, sem
 from scipy.stats.mstats import trim
@@ -73,6 +73,16 @@ def bootstrap_mean_aggregate(df, metric="test_metric", repeat=100):
 
 
 
+def scale_rmse(data: pd.DataFrame):
+    def scale(row):
+        if (row["dataset"] == "biomassters") and ("rmse" in row["Metric"].lower()):
+            return 1 - (row["test metric"]*BIOMASSTERS_STD)  
+        else:
+            return row["test metric"]
+    data["test metric"] = data.apply(lambda row: scale(row), axis=1)
+    return data
+
+
 def average_seeds(df, group_keys=("model", "dataset"), metric="test metric"):
     """Average seeds for all model and all datasets."""
     df_avg = df.groupby(list(group_keys))[metric].mean()
@@ -80,13 +90,6 @@ def average_seeds(df, group_keys=("model", "dataset"), metric="test metric"):
 
     df_avg = df_avg.round(3)
     return df_avg
-
-
-def extract_1x_data(df_all):
-    """Extract only resutls trained on 100% of the data"""
-    return df_all[
-        (df_all["partition name"] == "1.00x train") | (df_all["partition name"] == "default")
-    ].copy()
 
 
 class Normalizer:
