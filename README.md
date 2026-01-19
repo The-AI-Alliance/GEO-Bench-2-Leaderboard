@@ -9,7 +9,7 @@ pinned: false
 
 # 🏆 GEO-Bench Leaderboard
 
-The [GEO-Bench leaderboard](https://huggingface.co/spaces/aialliance/GEO-Bench-Leaderboard) tracks performance of geospatial foundation models on various benchmark datasets using the GEO-Bench benchmarking framework. 
+The [GEO-Bench leaderboard](https://huggingface.co/spaces/aialliance/GEO-Bench-2-Leaderboard) tracks performance of geospatial foundation models on various benchmark datasets using the GEO-Bench benchmarking framework. 
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Language: Python](https://img.shields.io/badge/language-Python%203.10%2B-green?logo=python&logoColor=green)](https://www.python.org)
